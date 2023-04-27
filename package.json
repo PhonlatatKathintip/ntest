@@ -23,7 +23,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "^0.71.7",
-    "react-slideshow-image": "^4.2.1"
+    "react-slideshow-image": "^4.2.1",
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
