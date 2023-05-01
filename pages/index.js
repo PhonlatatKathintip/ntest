@@ -4,42 +4,27 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
-import products from "./data/products";
+import Axios from "axios";
 
-export async function getStaticProps() {
-  const client = new ApolloClient({
-    uri: "https://api-ap-northeast-1.hygraph.com/v2/clgyx5z41246101ue9mnm4lf8/master",
-    cache: new InMemoryCache(),
-  });
-  const data = await client.query({
-    query: gql`
-      query MyQuery {
-        ntests {
-          id
-          image
-          name
-          price
-          slug
-        }
-      }
-    `,
-  });
-  const ntests = data.data.ntests;
+export const getStaticProps = async () => {
+  const res = await Axios.get("http://localhost:3001/api/user/");
+  //console.log(res.data);
   return {
     props: {
       ntests,
-    },
+    props: { ntests: res.data },
   };
-}
+};
 
 export default function Home({ ntests }) {
+  console.log(ntests);
   return (
     <div className="flex-1 flex-row grid grid-cols-4 gap-4 mr-3 ml-3">
-      {ntests.map((ntests) => {
+      {ntests.rows.map((ntests, index) => {
         return (
-          <div>
+          <div key={index}>
             <Card className="justify-center mb-3 mt-3  flex-wrap">
-              <div key={ntests.id}>
+              <div key={ntests.slug}>
                 <Link href={`products/${ntests.slug}`}>
                   <div>
                     <img
