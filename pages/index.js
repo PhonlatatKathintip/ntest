@@ -10,8 +10,6 @@ export const getStaticProps = async () => {
   const res = await Axios.get("http://localhost:3001/api/user/");
   //console.log(res.data);
   return {
-    props: {
-      ntests,
     props: { ntests: res.data },
   };
 };
